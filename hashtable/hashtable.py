@@ -21,7 +21,9 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        # Your code here
+        self.capacity = MIN_CAPACITY
+        
+        self.table = [None] * self.capacity
 
 
     def get_num_slots(self):
@@ -34,7 +36,8 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        
+        return len(self.table)
 
 
     def get_load_factor(self):
@@ -62,7 +65,11 @@ class HashTable:
 
         Implement this, and/or FNV-1.
         """
-        # Your code here
+        
+        hash = 5381
+        for c in key:
+            hash = (hash * 33) + ord(c)
+        return hash
 
 
     def hash_index(self, key):
@@ -81,7 +88,12 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        #find index where you put value:
+        index = self.hash_index(key)
+
+        #put value there
+        self.table[index] = value
+
 
 
     def delete(self, key):
@@ -93,6 +105,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        #TODO: how could the key not be found? -- just for collisions?
+        index = self.hash_index(key)
+
+        self.table[index] = None
 
 
     def get(self, key):
@@ -104,6 +120,9 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        index = self.hash_index(key)
+
+        return self.table[index]
 
 
     def resize(self, new_capacity):
