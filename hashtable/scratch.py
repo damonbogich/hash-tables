@@ -34,3 +34,16 @@ def delete(key):
     table[index] = None
     
 
+
+
+#GET with collisions:
+    #Get the index for the key
+    #Search the LL at that index for the entry for that key
+    #Return the value (or None if not found)
+
+#PUT WITH COLLISIONS:
+    #Get the index for the key
+    #Search the list for the key
+    #if it already exists, overwrite the value
+    #Else, insert the [key, value] at the head of the LL if not
+
