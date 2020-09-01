@@ -135,6 +135,12 @@ class HashTable:
         while current is not None:
             if current.key == key:
                 current.value = None
+                self.count -= 1
+                if self.capacity > 8:
+                    if self.get_load_factor() < .2:
+                        new_capacity = self.capacity / 2
+                        self.resize(new_capacity)
+
                 return
             current = current.next
         print('Warning, key not found')
