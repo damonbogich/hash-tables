@@ -18,7 +18,7 @@ def slowfun(x, y):
     output, but completes quickly instead of taking ages to run.
     """
     
-
+    
     cache_key = (x, y)
 
     if cache_key not in cache:
