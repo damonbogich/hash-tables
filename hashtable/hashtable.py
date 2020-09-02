@@ -108,6 +108,7 @@ class HashTable:
         self.table[index].next = current_head
         self.count += 1
 
+        #change capacity if load factor > .7
         if self.get_load_factor() > .7:
             new_capacity = self.capacity * 2
 
@@ -136,6 +137,8 @@ class HashTable:
             if current.key == key:
                 current.value = None
                 self.count -= 1
+
+                #change capacity if load factor is < .2
                 if self.capacity > 8:
                     if self.get_load_factor() < .2:
                         new_capacity = self.capacity / 2
@@ -188,150 +191,6 @@ class HashTable:
                     self.put(current.key, current.value)
                     current = current.next
 
-
-
-
-
-
-
-##### Monday:::
-
-
-# class HashTableEntry:
-#     """
-#     Linked List hash table key/value pair
-#     """
-#     def __init__(self, key, value):
-#         self.key = key
-#         self.value = value
-#         self.next = None
-
-
-# # Hash table can't have fewer than this many slots
-# MIN_CAPACITY = 8
-
-
-# class HashTable:
-#     """
-#     A hash table that with `capacity` buckets
-#     that accepts string keys
-
-#     Implement this.
-#     """
-
-#     def __init__(self, capacity):
-#         self.capacity = MIN_CAPACITY
-        
-#         self.table = [None] * self.capacity
-
-
-#     def get_num_slots(self):
-#         """
-#         Return the length of the list you're using to hold the hash
-#         table data. (Not the number of items stored in the hash table,
-#         but the number of slots in the main list.)
-
-#         One of the tests relies on this.
-
-#         Implement this.
-#         """
-        
-#         return len(self.table)
-
-
-#     def get_load_factor(self):
-#         """
-#         Return the load factor for this hash table.
-
-#         Implement this.
-#         """
-#         # Your code here
-
-
-#     def fnv1(self, key):
-#         """
-#         FNV-1 Hash, 64-bit
-
-#         Implement this, and/or DJB2.
-#         """
-
-#         # Your code here
-
-
-#     def djb2(self, key):
-#         """
-#         DJB2 hash, 32-bit
-
-#         Implement this, and/or FNV-1.
-#         """
-        
-#         hash = 5381
-#         for c in key:
-#             hash = (hash * 33) + ord(c)
-#         return hash
-
-
-#     def hash_index(self, key):
-#         """
-#         Take an arbitrary key and return a valid integer index
-#         between within the storage capacity of the hash table.
-#         """
-#         #return self.fnv1(key) % self.capacity
-#         return self.djb2(key) % self.capacity
-
-#     def put(self, key, value):
-#         """
-#         Store the value with the given key.
-
-#         Hash collisions should be handled with Linked List Chaining.
-
-#         Implement this.
-#         """
-#         #find index where you put value:
-#         index = self.hash_index(key)
-
-#         #put value there
-#         self.table[index] = value
-
-
-
-#     def delete(self, key):
-#         """
-#         Remove the value stored with the given key.
-
-#         Print a warning if the key is not found.
-
-#         Implement this.
-#         """
-#         # Your code here
-#         #TODO: how could the key not be found? -- just for collisions?
-#         index = self.hash_index(key)
-
-#         self.table[index] = None
-
-
-#     def get(self, key):
-#         """
-#         Retrieve the value stored with the given key.
-
-#         Returns None if the key is not found.
-
-#         Implement this.
-#         """
-#         # Your code here
-#         index = self.hash_index(key)
-
-#         return self.table[index]
-
-
-#     def resize(self, new_capacity):
-#         """
-#         Changes the capacity of the hash table and
-#         rehashes all key/value pairs.
-
-#         Implement this.
-#         """
-#         # Your code here
 
 
 
