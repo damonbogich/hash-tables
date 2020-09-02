@@ -1,9 +1,14 @@
 # Your code here
-
+cache = {}
 
 def expensive_seq(x, y, z):
-    # Your code here
-
+    cache_key = (x, y, z)
+    if x <= 0:
+        return y + z
+    else:
+        if cache_key not in cache:
+            cache[cache_key] = expensive_seq(x-1,y+1,z) + expensive_seq(x-2,y+2,z*2) + expensive_seq(x-3,y+3,z*3)
+    return cache[cache_key]
 
 
 if __name__ == "__main__":
