@@ -139,7 +139,7 @@ class HashTable:
                 self.count -= 1
 
                 #change capacity if load factor is < .2
-                if self.capacity > 8:
+                if self.capacity > MIN_CAPACITY:
                     if self.get_load_factor() < .2:
                         new_capacity = self.capacity / 2
                         self.resize(new_capacity)
