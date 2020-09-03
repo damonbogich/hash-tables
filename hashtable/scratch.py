@@ -75,23 +75,114 @@ Build a lookup table for the inverse square root for numbers 1 - 1000.
 
 
 
-### EX 4:
-#count the number of occurences of a letter in a string
+# ### EX 4:
+# #count the number of occurences of a letter in a string
 
-def letter_count(s):
-    d = {}
+# def letter_count(s):
+#     d = {}
+
+#     for c in s:
+#         if c.isspace():
+#             continue
+        
+#         c = c.upper()
+        
+#         if c not in d:
+#             d[c] = 1
+#         else:
+#             d[c] += 1
+        
+#     return d
+
+# print(letter_count('Hello there!'))
+
+
+
+
+# ##### EX 5
+# #indexing
+
+# records = [
+#     ("Alice", "Engineering"),
+#     ("Bob", "Sales"),
+#     ("Carol", "Sales"),
+#     ("Dave", "Engineering"),
+#     ("Erin", "Engineering"),
+#     ("Frank", "Engineering"),
+#     ("Grace", "Marketing")
+# ]
+
+# dept_index = {}
+
+# def add_to_index(name, dept):
+#     if dept not in dept_index:
+#         dept_index[dept] = []
+#     dept_index[dept].append(name)
+
+
+
+
+# #Build the index
+# for name, department in records:
+#     if department not in dept_index:
+#         dept_index[department] = []
+#     dept_index[department].append(name)
+
+# #then can do very quick lookups in the table
+# print(dept_index)    
+
+
+
+
+#### EX 6:
+#encryption 
+
+encode_table = {
+    'A': 'H',
+    'B': 'Z',
+    'C': 'Y',
+    'D': 'W',
+    'E': 'O',
+    'F': 'R',
+    'G': 'J',
+    'H': 'D',
+    'I': 'P',
+    'J': 'T',
+    'K': 'I',
+    'L': 'G',
+    'M': 'L',
+    'N': 'C',
+    'O': 'E',
+    'P': 'X',
+    'Q': 'K',
+    'R': 'U',
+    'S': 'N',
+    'T': 'F',
+    'U': 'A',
+    'V': 'M',
+    'W': 'B',
+    'X': 'Q',
+    'Y': 'V',
+    'Z': 'S'
+}
+
+decode_table = {value:key for key, value in encode_table.items()}
+def encrypt(s):
+    result = ''
 
     for c in s:
-        if c.isspace():
-            continue
-        
-        c = c.upper()
-        
-        if c not in d:
-            d[c] = 1
-        else:
-            d[c] += 1
-        
-    return d
+        result += encode_table[c] 
+    
+    return result
 
-print(letter_count('Hello there!'))
+def decrypt(s):
+    result = ''
+
+    for c in s:
+        c = c.upper()
+
+        if c isaplpha():
+            result += decode_table[c]
+        result += encode_table[c]
+    
+    return result
