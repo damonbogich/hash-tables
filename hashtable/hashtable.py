@@ -21,7 +21,11 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        # Your code here
+        self.capacity = MIN_CAPACITY
+        
+        self.table = [None] * self.capacity
+
+        self.count = 0
 
 
     def get_num_slots(self):
@@ -34,7 +38,8 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        
+        return len(self.table)
 
 
     def get_load_factor(self):
@@ -43,8 +48,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
-
+        return self.capacity/self.count
 
     def fnv1(self, key):
         """
@@ -62,7 +66,11 @@ class HashTable:
 
         Implement this, and/or FNV-1.
         """
-        # Your code here
+        
+        hash = 5381
+        for c in key:
+            hash = (hash * 33) + ord(c)
+        return hash
 
 
     def hash_index(self, key):
@@ -81,7 +89,35 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        #make it a hashtable entry:
+        entry = HashTableEntry(key, value)
+        #Get the index for the key
+        index = self.hash_index(key)
+        #Search the list for the key
+        current = self.table[index]
+        #if it already exists, overwrite the value
+        while current is not None:
+            if current.key == key:
+                current.value = value
+                return
+            current = current.next
+        #Else, insert the [key, value] at the head of the LL if not
+        current_head = self.table[index]
+        
+        self.table[index] = entry
+        self.table[index].next = current_head
+        self.count += 1
+
+        #change capacity if load factor > .7
+        if self.get_load_factor() > .7:
+            new_capacity = self.capacity * 2
+
+            self.resize(new_capacity)
+
+
+        
+        
+
 
 
     def delete(self, key):
@@ -93,6 +129,26 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        #TODO: how could the key not be found? -- just for collisions?
+        index = self.hash_index(key)
+        #check the table for the key, if it matches, remove that value from given key
+        current = self.table[index]
+        while current is not None:
+            if current.key == key:
+                current.value = None
+                self.count -= 1
+
+                #change capacity if load factor is < .2
+                if self.capacity > MIN_CAPACITY:
+                    if self.get_load_factor() < .2:
+                        new_capacity = self.capacity / 2
+                        self.resize(new_capacity)
+
+                return
+            current = current.next
+        print('Warning, key not found')
+        
+
 
 
     def get(self, key):
@@ -103,7 +159,16 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        #Get the index for the key
+        index = self.hash_index(key)
+        #Search the LL at that index for the entry for that key
+        current = self.table[index]
+        while current is not None:
+            if current.key == key:
+                return current.value
+            current = current.next
+        return None
+        #Return the value (or None if not found)
 
 
     def resize(self, new_capacity):
@@ -113,7 +178,19 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        previous_table = self.table
+
+        # new_capacity = self.capacity * 2
+
+        self.table = [None for i in range(new_capacity)]
+
+        for entry in previous_table:
+            if entry is not None:
+                current = entry
+                while current is not None:
+                    self.put(current.key, current.value)
+                    current = current.next
+
 
 
 
